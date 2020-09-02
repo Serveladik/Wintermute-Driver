@@ -14,16 +14,40 @@ public class TruckController : MonoBehaviour
     public GameObject leftKovsh;
     public GameObject rightKovsh;
     public float speed;
+    //[HideInInspector]
+    public float defaultSpeed;
+    public float sensitivity;
+    private Rigidbody rb;
+    private Touch touch;
+    private Quaternion rotationY;
+    public Animator gameOverAnim;
+    
     // Update is called once per frame
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>(); 
+    }
     void Update()
     {
         TruckControl();
-        //Debug.Log(snowing);
+        CheckSnow();
     }
     void TruckControl()
     {
         truck.transform.Translate(Vector3.forward*speed/100);
-        if(snowing == true)
+        if(Input.touchCount>0)
+        {
+            touch = Input.GetTouch(0);
+            if(touch.phase == TouchPhase.Moved)
+            {
+                rotationY = Quaternion.Euler(0f,touch.deltaPosition.x * sensitivity/300,0f);
+                transform.rotation = rotationY * transform.rotation;
+            }
+        }
+    }
+    void CheckSnow()
+    {
+    if(snowing == true)
         {
             snowingTime-=Time.deltaTime;
             if(snowingTime<=0)
@@ -31,7 +55,6 @@ public class TruckController : MonoBehaviour
                 snowSpawn();
                 snowingTime=defaultSnowTime;
             }
-            
         }
     }
     void OnTriggerEnter(Collider truck)
@@ -39,6 +62,11 @@ public class TruckController : MonoBehaviour
         if(truck.gameObject.tag == "Snow")
         {
             snowing=true;
+        }
+        if(truck.gameObject.tag == "Dead")
+        {
+            gameOverAnim.SetBool("GameOver",true);
+            Debug.Log("DEAD");
         }
         
     }
