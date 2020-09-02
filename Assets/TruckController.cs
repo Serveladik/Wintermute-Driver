@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class TruckController : MonoBehaviour
 {
-    private bool snowing=true;
+    public float snowingTime;
+
+    public float defaultSnowTime;
+    private bool snowing=false;
     public GameObject truck;
-    public GameObject snow;
+    //public List<GameObject> snowList = new List <GameObject>();
+    public GameObject[] snow;
     public GameObject leftKovsh;
     public GameObject rightKovsh;
     public float speed;
@@ -14,33 +18,44 @@ public class TruckController : MonoBehaviour
     void Update()
     {
         TruckControl();
+        //Debug.Log(snowing);
     }
     void TruckControl()
     {
         truck.transform.Translate(Vector3.forward*speed/100);
+        if(snowing == true)
+        {
+            snowingTime-=Time.deltaTime;
+            if(snowingTime<=0)
+            {
+                snowSpawn();
+                snowingTime=defaultSnowTime;
+            }
+            
+        }
     }
     void OnTriggerEnter(Collider truck)
     {
-        if(truck.tag == "Snow")
+        if(truck.gameObject.tag == "Snow")
         {
             snowing=true;
-            while(snowing == true)
-            {
-                StartCoroutine("snowSpawn");
-            }
         }
+        
     }
     void OnTriggerExit(Collider truck)
     {
-        if(truck.tag == "Snow")
+        if(truck.gameObject.tag == "Snow")
         {
-            StopCoroutine("snowSpawn");
+            snowing=false;
+            
         }
     }
-    IEnumerator snowSpawn()
+    void snowSpawn()
     {
-        Instantiate(snow,leftKovsh.transform.position,Quaternion.identity);
-        Instantiate(snow,rightKovsh.transform.position,Quaternion.identity);
-        yield return new WaitForSecondsRealtime(0.5f);
+        GameObject snowLeft = Instantiate(snow[Random.Range(0,3)],leftKovsh.transform.position,Quaternion.identity) as GameObject;
+        GameObject snowRight = Instantiate(snow[Random.Range(0,3)],rightKovsh.transform.position,Quaternion.identity) as GameObject;
+
+        Destroy(snowLeft,2f);
+        Destroy(snowRight,2f);
     }
 }
