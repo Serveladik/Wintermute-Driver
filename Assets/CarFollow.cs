@@ -1,21 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CarFollow : MonoBehaviour
 {
     public Transform TruckPos;
-    public float carSpeed = 40f;
-    const float dist = 5f;
+    public NavMeshAgent navMesh;
     
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(TruckPos.position);
-        if((transform.position - TruckPos.position).magnitude > dist)
-        {
-            transform.Translate(0f,0f,carSpeed*Time.deltaTime);
-        }
+        navMesh.SetDestination(TruckPos.position);
     }
 }
