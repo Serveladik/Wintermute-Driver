@@ -20,7 +20,8 @@ public class TruckController : MonoBehaviour
     private Rigidbody rb;
     private Touch touch;
     private Quaternion rotationY;
-    public Animator gameOverAnim;
+    public GameObject gameOverAnim;
+    public GameObject finishAnim;
     
     // Update is called once per frame
     void Start()
@@ -65,8 +66,13 @@ public class TruckController : MonoBehaviour
         }
         if(truck.gameObject.tag == "Dead")
         {
-            gameOverAnim.SetBool("GameOver",true);
-            Debug.Log("DEAD");
+            gameOverAnim.SetActive(true);
+            speed=0f;
+           // Debug.Log("DEAD");
+        }
+        if(truck.gameObject.tag == "finish")
+        {
+            finishAnim.SetActive(true);
         }
         
     }
