@@ -13,6 +13,6 @@ public class firstLocAutoDestroy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject,22f);
+        Destroy(gameObject,40f);
     }
 }

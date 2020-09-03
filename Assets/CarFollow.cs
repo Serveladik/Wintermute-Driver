@@ -6,12 +6,19 @@ using UnityEngine.AI;
 public class CarFollow : MonoBehaviour
 {
     public Transform TruckPos;
-    public NavMeshAgent navMesh;
+    public Rigidbody rb;
+    private float speed = 0.58f;
+    
     
 
     // Update is called once per frame
     void Update()
     {
-        navMesh.SetDestination(TruckPos.position);
+        transform.LookAt(TruckPos.position);
+        float distance = Vector3.Distance(TruckPos.position, transform.position);
+        if(distance>=10f)
+        {
+            transform.position = Vector3.Lerp(transform.position, TruckPos.position, speed * Time.deltaTime);
+        }
     }
 }
