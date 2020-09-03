@@ -9,7 +9,7 @@
 
         _HeightMap("Height Map", 2D)  = "white" {}
         _HeightAmount("Height Amount", float)  = 0.5
-        _TessellationAmount("Tessellation Amount", Range(1,32))  = 4
+        _TessellationAmount("Tessellation Amount", Range(1,32))  = 8
     }
     SubShader
     {
@@ -18,7 +18,7 @@
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows vertex:vert tessellate:tess
+        #pragma surface surf Standard fullforwardshadows vertex:vert  tessellate:tess nolightmap
 
         float _TessellationAmount;
 
