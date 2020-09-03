@@ -7,7 +7,7 @@ public class GenerateLocationScript : MonoBehaviour
     public GenListScript genObj;
     GameObject genLocation;
     
-    private Vector3 nextLocation = new Vector3 (0,0,175);
+    private Vector3 nextLocation = new Vector3 (0,0,176);
     public GameObject[] locations;
    void OnTriggerEnter(Collider generateTrigger)
    {

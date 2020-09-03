@@ -7,7 +7,7 @@ public class CarFollow : MonoBehaviour
 {
     public Transform TruckPos;
     public Rigidbody rb;
-    private float speed = 0.58f;
+    private float speed = 1.2f;
     
     
 

@@ -20,18 +20,7 @@ public class SnowDeletion : MonoBehaviour
     void Update()
     {
         DrawPath();
-        if (Input.GetMouseButton(0))
-        {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                Vector2 hitTextureCoord = hit.textureCoord;
-
-                HeightMapUpdate.SetVector(DrawPosition, hitTextureCoord);
-                HeightMapUpdate.SetFloat(DrawAngle, 45 * Mathf.Deg2Rad);
-            }
-        }
+        
     }
     void DrawPath()
     {
